@@ -1,4 +1,4 @@
-/******************************************************************************
+﻿/******************************************************************************
     QtAV Player Demo:  this file is part of QtAV examples
     Copyright (C) 2012-2016 Wang Bin <wbsecg1@gmail.com>
 
@@ -156,11 +156,13 @@ void MainWindow::initPlayer()
 {
     mpPlayer = new AVPlayer(this);
     mIsReady = true;
-    VideoRenderer *vo = VideoRenderer::create((VideoRendererId)property("rendererId").toInt());
+    int id = (VideoRendererId)property("rendererId").toInt();
+    VideoRenderer *vo = VideoRenderer::create(id);
     if (!vo || !vo->isAvailable() || !vo->widget()) {
         QMessageBox::critical(0, QString::fromLatin1("QtAV"), tr("Video renderer is ") + tr("not availabe on your platform!"));
     }
     setRenderer(vo);
+
     //mpSubtitle->installTo(mpPlayer); //filter on frame
     mpSubtitle->setPlayer(mpPlayer);
     //mpPlayer->setAudioOutput(AudioOutputFactory::create(AudioOutputId_OpenAL));
